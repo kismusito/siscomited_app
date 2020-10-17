@@ -1,0 +1,170 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.mt-2 {
+    margin-top: 5px;
+}
+
+.background_login {
+    background-color: #fff0dd;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.custom_background_sidebar {
+    padding-left: 320px;
+}
+
+#root {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.btn {
+    border: 0;
+    padding: 10px 20px;
+}
+
+.btn_orange {
+    color: #fff;
+    background-color: var(--sena-orange-color);
+    transition: 0.5s all;
+    cursor: pointer;
+    border-radius: 20px;
+    outline: none;
+    text-decoration: none;
+}
+
+.btn_teal {
+    color: #fff;
+    background-color: var(--sena-green-color);
+    transition: 0.5s all;
+    cursor: pointer;
+    border-radius: 20px;
+    outline: none;
+    text-decoration: none;
+    font-size: 0.8em;
+}
+
+.btn_teal {
+    color: #fff;
+    background-color: var(--sena-green-color);
+    transition: 0.5s all;
+    cursor: pointer;
+    border-radius: 20px;
+    outline: none;
+}
+
+.mt-5 {
+    margin-top: 10px;
+}
+
+.btn_big {
+    width: 100%;
+}
+
+.btn_orange:hover {
+    background-color: var(--sena-orange-color-hover);
+}
+
+.leftMargin {
+    margin-left: 10px;
+}
+
+.mb-2 {
+    margin-bottom: 5px;
+}
+
+.cmp {
+    margin: 6px 0;
+}
+
+.mb-4 {
+    margin-bottom: 13px;
+}
+
+.bottomMargin2 {
+    margin-bottom: 3px;
+}
+
+.center_container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center_elements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_white_edit {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.034);
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 500px;
+    width: 500px;
+}
+
+.rows {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col_6 {
+    width: 48%;
+}
+
+.center_horizontal {
+    display: flex;
+    justify-content: center;
+}
+
+.show_alert_popUp {
+    width: 320px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.171);
+    position: fixed;
+    top: 40px;
+    right: 30px;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 10px;
+    border-radius: 10px;
+}
+
+.alert_show {
+    animation: loading_alert 1s ease-in;
+}
+
+.image_responsive_popup {
+    width: 70%;
+    object-fit: cover;
+}
+
+@keyframes loading_alert {
+    from {
+        right: -300px;
+    }
+    to {
+        right: 30px;
+    }
+}

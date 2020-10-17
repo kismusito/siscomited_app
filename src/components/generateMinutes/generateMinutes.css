@@ -1,0 +1,15 @@
+.min_width_editor {
+    margin: 20px 0;
+    width: 800px !important;
+}
+
+.btn_section_flex {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.w50 {
+    width: 46%;
+    text-align: center;
+}
