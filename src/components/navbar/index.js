@@ -1,1 +1,1 @@
-export * from "./NavbarSidebar";
+export * from "./Navbar";

@@ -12,14 +12,15 @@ import {
     Roles,
     EditUsers,
     AddUsers,
-    Configuration,
+    ChangePassword,
     UploadUsers,
     SearchAppretices,
-    SearchAppreticesToCitation,
-    MyCitations,
+    Citations,
     GenerateMinutes,
-    Solicities,
-    UploadInstructors
+    GenerateSolicity,
+    UploadInstructors,
+    MotivesAndProhibitions,
+    Solicities
 } from "./components";
 import "./App.css";
 import "./_vars.css";
@@ -76,8 +77,8 @@ class App extends Component {
                     <PrivateRoute path="/editUsers" component={EditUsers} auth={authReducer.auth} />
                     <PrivateRoute path="/addUser" component={AddUsers} auth={authReducer.auth} />
                     <PrivateRoute
-                        path="/config"
-                        component={Configuration}
+                        path="/changePassword"
+                        component={ChangePassword}
                         auth={authReducer.auth}
                     />
                     <PrivateRoute
@@ -97,12 +98,7 @@ class App extends Component {
                     />
                     <PrivateRoute
                         path="/citations"
-                        component={SearchAppreticesToCitation}
-                        auth={authReducer.auth}
-                    />
-                    <PrivateRoute
-                        path="/myCitations"
-                        component={MyCitations}
+                        component={Citations}
                         auth={authReducer.auth}
                     />
                     <PrivateRoute
@@ -111,8 +107,18 @@ class App extends Component {
                         auth={authReducer.auth}
                     />
                     <PrivateRoute
+                        path="/createSolicitiy"
+                        component={GenerateSolicity}
+                        auth={authReducer.auth}
+                    />
+                    <PrivateRoute
                         path="/solicities"
                         component={Solicities}
+                        auth={authReducer.auth}
+                    />
+                    <PrivateRoute
+                        path="/motivesAndProhibitions"
+                        component={MotivesAndProhibitions}
                         auth={authReducer.auth}
                     />
                     <Route component={Login} path="/login" />

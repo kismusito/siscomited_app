@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavbarSidebar } from "../components";
+import { Navbar } from "../components";
 import "./Home.css";
-import { Link } from "react-router-dom";
+import { CardComponent } from "./cardComponent";
 import { userActions } from "../_actions";
 
 class Home extends Component {
@@ -10,260 +10,156 @@ class Home extends Component {
         this.props.getRoleInfo(this.props.authReducer.userInfo.user_role);
     }
 
+    showComponent(rols = []) {
+        const userRol = this.props.getRolInfoReducer.rolInfo.capacity;
+        const searhRol = rols.indexOf(userRol);
+        if (searhRol === -1) {
+            return false;
+        }
+
+        return true;
+    }
+
     render() {
         const { getRolInfoReducer } = this.props;
 
         return (
             <div className="background_login">
-                <NavbarSidebar />
+                <Navbar />
                 <div className="custom_background_sidebar">
                     <div className="custom_background_apps">
                         <ul className="apps_items_list">
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Usuarios"
+                                    subtitle="Una forma sencilla de agregar nuevos usuarios."
+                                    redirect="addUser"
+                                    image="icon_edit_user.png"
+                                    alt="Add new user"
+                                />
+                            )}
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Editar usuarios"
+                                    subtitle="Esta herramienta te permite buscar usuarios y editar sus atributos."
+                                    redirect="editUsers"
+                                    image="edit_users.png"
+                                    alt="Edit user"
+                                />
+                            )}
+
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Editar roles"
+                                    subtitle="Con esta herramienta podrás editar los roles de los usuarios y agregar nuevos."
+                                    redirect="roles"
+                                    image="icon_user_rol.png"
+                                    alt="Manage roles"
+                                />
+                            )}
+
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Subir aprendizes"
+                                    subtitle="Con esta herramienta podrás subir masivamente todos los aprendices desde un archivo XML."
+                                    redirect="uploadApprentices"
+                                    image="upload_students.png"
+                                    alt="Upload appretices"
+                                />
+                            )}
+
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Subir instructores"
+                                    subtitle="Con esta herramienta podrás subir masivamente todos los instructores desde un archivo XML."
+                                    redirect="uploadInstructors"
+                                    image="upload_teacher.png"
+                                    alt="Upload teachers"
+                                />
+                            )}
+
                             {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/addUser">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/icon_edit_user.png"
-                                                    alt="add user new"
-                                                />
-                                            </div>
-                                            <div className="title">Usuarios</div>
-                                            <div className="subtitle">
-                                                Una forma sencilla de agregar nuevos usuarios.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/editUsers">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/edit_users.png"
-                                                    alt="edit user "
-                                                />
-                                            </div>
-                                            <div className="title">Editar usuarios</div>
-                                            <div className="subtitle">
-                                                Esta herramienta te permite buscar usuarios y editar
-                                                sus atributos.
-                                            </div>
-                                        </Link>
-                                    </li>
+                                this.showComponent(["admin", "instructor"]) && (
+                                    <CardComponent
+                                        title="Buscar aprendiz"
+                                        subtitle="Una forma fácil y sencilla de buscar la información de cualquier aprendiz."
+                                        redirect="searchAppretices"
+                                        image="search_user.png"
+                                        alt="Search appretices"
+                                    />
                                 )}
 
                             {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/roles">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/icon_user_rol.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Editar roles</div>
-                                            <div className="subtitle">
-                                                Con esta herramienta podrás editar los roles de los
-                                                usuarios y agregar nuevos.
-                                            </div>
-                                        </Link>
-                                    </li>
+                                this.showComponent(["admin", "director"]) && (
+                                    <CardComponent
+                                        title="Buscar instructor"
+                                        subtitle="Una forma fácil y sencilla de buscar la información de cualquier instructor."
+                                        redirect="roles"
+                                        image="search_intructor.png"
+                                        alt="Search instructors"
+                                    />
                                 )}
 
                             {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link
-                                            className="list_item_apps_link"
-                                            to="/uploadApprentices"
-                                        >
-                                            <div>
-                                                <img
-                                                    src="/assets/img/upload_students.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Subir aprendizes</div>
-                                            <div className="subtitle">
-                                                Con esta herramienta podrás subir masivamente todos
-                                                los aprendices desde un archivo XML.
-                                            </div>
-                                        </Link>
-                                    </li>
+                                this.showComponent(["admin", "director", "instructor"]) && (
+                                    <CardComponent
+                                        title="Solicitudes"
+                                        subtitle="Construye dinámicamente una citación, con esta herramienta podrás construir citaciones en cuestión de segundos."
+                                        redirect="solicities"
+                                        image="icon_add_citation.png"
+                                        alt="Solicities"
+                                    />
                                 )}
 
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/uploadInstructors">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/upload_teacher.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Subir instructores</div>
-                                            <div className="subtitle">
-                                                Con esta herramienta podrás subir masivamente todos
-                                                los instructores desde un archivo XML.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Citaciones"
+                                    subtitle="Con esta herramienta podrás administrar todas tus citaciones, enviarlas y cambiar su estado."
+                                    redirect="citations"
+                                    image="icon_add_file.png"
+                                    alt="Citations"
+                                />
+                            )}
 
-                            <li className="list_item_apps">
-                                <Link className="list_item_apps_link" to="/searchAppretices">
-                                    <div>
-                                        <img src="/assets/img/search_user.png" alt="edit roles" />
-                                    </div>
-                                    <div className="title">Buscar aprendiz</div>
-                                    <div className="subtitle">
-                                        Una forma fácil y sencilla de buscar la información de
-                                        cualquier aprendiz.
-                                    </div>
-                                </Link>
-                            </li>
+                            {getRolInfoReducer.status && this.showComponent(["instructor"]) && (
+                                <CardComponent
+                                    title="Crear solicitud"
+                                    subtitle="Construye dinámicamente una citación, con esta herramienta podrás construir citaciones en cuestión de segundos."
+                                    redirect="createSolicitiy"
+                                    image="icon_add_citation.png"
+                                    alt="Add citations"
+                                />
+                            )}
 
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/roles">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/search_intructor.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Buscar instructor</div>
-                                            <div className="subtitle">
-                                                Una forma fácil y sencilla de buscar la información
-                                                de cualquier instructor.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Actas"
+                                    subtitle="Construye dinámicamente tus actas, con esta herramienta podrás construir actas en cuestión de segundos."
+                                    redirect="generateMinutes"
+                                    image="icon_add_citation.png"
+                                    alt="Minutes"
+                                />
+                            )}
 
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/myCitations">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/icon_add_file.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Mis citaciones</div>
-                                            <div className="subtitle">
-                                                Con esta herramienta podrás administrar todas tus
-                                                citaciones, enviarlas y cambiar su estado.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Emails"
+                                    subtitle="Envia emails emails masivos a todos los aprendices que selecciones."
+                                    redirect="generateMinutes"
+                                    image="email_icon.png"
+                                    alt="Emails"
+                                />
+                            )}
 
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/citations">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/icon_add_citation.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Citaciones</div>
-                                            <div className="subtitle">
-                                                Construye dinámicamente una citación, con esta
-                                                herramienta podrás construir citaciones en cuestión
-                                                de segundos.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
-
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "instructor" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/solicities">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/icon_add_citation.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Solicitudes</div>
-                                            <div className="subtitle">
-                                                Construye dinámicamente una citación, con esta
-                                                herramienta podrás construir citaciones en cuestión
-                                                de segundos.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
-
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "instructor" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/solicities">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/icon_add_citation.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Crear solicitud</div>
-                                            <div className="subtitle">
-                                                Construye dinámicamente una citación, con esta
-                                                herramienta podrás construir citaciones en cuestión
-                                                de segundos.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
-
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/generateMinutes">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/icon_add_citation.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Actas</div>
-                                            <div className="subtitle">
-                                                Construye dinámicamente tus actas, con esta
-                                                herramienta podrás construir actas en cuestión de
-                                                segundos.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
-
-                            {getRolInfoReducer.status &&
-                                getRolInfoReducer.rolInfo.capacity === "admin" && (
-                                    <li className="list_item_apps">
-                                        <Link className="list_item_apps_link" to="/generateMinutes">
-                                            <div>
-                                                <img
-                                                    src="/assets/img/email_icon.png"
-                                                    alt="edit roles"
-                                                />
-                                            </div>
-                                            <div className="title">Emails</div>
-                                            <div className="subtitle">
-                                                Envia emails emails masivos a todos los aprendices
-                                                que selecciones.
-                                            </div>
-                                        </Link>
-                                    </li>
-                                )}
+                            {getRolInfoReducer.status && this.showComponent(["admin"]) && (
+                                <CardComponent
+                                    title="Motivos o prohibiciones"
+                                    subtitle="Envia emails emails masivos a todos los aprendices que selecciones."
+                                    redirect="motivesAndProhibitions"
+                                    image="email_icon.png"
+                                    alt="Motives or prohibitions"
+                                />
+                            )}
                         </ul>
                     </div>
                 </div>

@@ -103,6 +103,32 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+}
+
+.w300 {
+    width: 300px !important;
+    min-width: 300px !important;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.color_teal {
+    color: var(--sena-green-color)
+}
+
+.full_width {
+    width: 100%;
+}
+
+.center_margin {
+    margin: 0 auto;
+}
+
+.column_direction {
+    flex-direction: column;
 }
 
 .center_elements {
@@ -117,8 +143,8 @@ body {
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.034);
     padding: 20px;
     border-radius: 10px;
-    min-width: 500px;
-    width: 500px;
+    min-width: 600px;
+    width: 600px;
 }
 
 .rows {

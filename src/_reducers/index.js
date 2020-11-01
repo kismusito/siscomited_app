@@ -1,23 +1,27 @@
 import { combineReducers } from "redux";
 import { userConstants } from "../_constants";
-import { authReducer } from "./authReducer";
-import { editProfileReducer } from "./editProfileReducer";
-import { roleReducer } from "./rolesReducer";
-import { addRoleReducer } from "./addRoleReducer";
-import { registerUserReducer } from "./registerUserReducer";
-import { getRolInfoReducer } from "./getRoleInfoReducer";
-import { getRoleCapacitiesReducer } from "./getRoleCapacitiesReducer";
-import { searchUsersReducer } from "./searchUsersReducer";
-import { searchedUserReducer } from "./searchedUserReducer";
-import { editUserSearchReducer } from "./editUserReducer";
-import { uploadReducer } from "./uploadReducer";
-import { searchReducer } from "./searchReducer";
-import { apreticeSearchedReducer } from "./appreticeSearchedReducer";
-import { generateConstantReducer } from "./generateConstantReducer";
-import { citationsReducer } from "./citationsReducer";
-import { citationSelectedReducer } from "./citationSelectedReducer";
-import { uploadNewStatusCitation } from "./uploadNewStatusCitation";
-import { chagePasswordReducer } from "./chagePasswordReducer";
+
+import { citationSelectedReducer, citationsReducer, generateConstantReducer } from "./Citations";
+import { addRoleReducer, getRolInfoReducer, getRoleCapacitiesReducer, roleReducer } from "./Role";
+import { uploadNewStatusCitation, uploadReducer, uploadSolicityFilesReducer } from "./Upload";
+import { registerUserReducer, authReducer } from "./Auth";
+import { chagePasswordReducer, editProfileReducer, editUserSearchReducer } from "./Edit";
+import { getAppreticeInfoReducer, saveAppreticeInfoReducer } from "./Appretice";
+import {
+    searchReducer,
+    searchUsersReducer,
+    searchedUserReducer,
+    apreticeSearchedReducer,
+} from "./Search";
+import {
+    getMotivesOrProhibitionsReducer,
+    saveMotiveOrProhibitionReducer,
+    saveSolicityReducer,
+    getSolicitiesReducer,
+    updateSolicityStatusReducer,
+    getSolicityReducer,
+    getSolicityDrawReducer,
+} from "./Solicity";
 
 const rootReducer = combineReducers({
     authReducer,
@@ -38,6 +42,16 @@ const rootReducer = combineReducers({
     uploadNewStatusCitation,
     chagePasswordReducer,
     getRoleCapacitiesReducer,
+    uploadSolicityFilesReducer,
+    getSolicityDrawReducer,
+    getAppreticeInfoReducer,
+    saveAppreticeInfoReducer,
+    getMotivesOrProhibitionsReducer,
+    saveMotiveOrProhibitionReducer,
+    saveSolicityReducer,
+    getSolicitiesReducer,
+    updateSolicityStatusReducer,
+    getSolicityReducer,
 });
 
 export default (state, action) =>
