@@ -11,6 +11,10 @@ export const solicityActions = {
     changeSolicityStatus,
     getSolicityDetails,
     closeSolicityDetail,
+    updateMotiveOrProhibition,
+    deleteMotiveOrProhibition,
+    getMotiveOrProhibition,
+    finishMotiveOrProhibition,
 };
 
 function getDrawSolicity() {
@@ -266,6 +270,7 @@ function getSolicityDetails(id) {
         return { type: solicityConstants.GETSOLICITIE_FAILURE, response };
     }
 }
+
 function closeSolicityDetail() {
     return (dispatch) => {
         dispatch(closeModal());
@@ -273,5 +278,151 @@ function closeSolicityDetail() {
 
     function closeModal() {
         return { type: solicityConstants.GETSOLICITIE_CLOSE_MODAL };
+    }
+}
+
+function getMotiveOrProhibition(key) {
+    return (dispatch) => {
+        dispatch(request());
+
+        solicityService
+            .getMotiveOrProhibition(key)
+            .then((response) => {
+                if (response.status) {
+                    dispatch(success(response));
+                } else {
+                    dispatch(failure(response));
+                }
+            })
+            .catch((err) => {
+                dispatch(failure(err));
+            });
+    };
+
+    function request() {
+        return { type: solicityConstants.GETMOTIVESORPROHIBITION_REQUEST };
+    }
+    function success(response) {
+        return { type: solicityConstants.GETMOTIVESORPROHIBITION_SUCCESS, response };
+    }
+    function failure(response) {
+        return { type: solicityConstants.GETMOTIVESORPROHIBITION_FAILURE, response };
+    }
+}
+
+function updateMotiveOrProhibition(data) {
+    return (dispatch) => {
+        dispatch(request());
+
+        solicityService
+            .updateMotiveOrProhibition(data)
+            .then((response) => {
+                if (response.status) {
+                    dispatch(success(response));
+                    solicityService
+                        .getMotivesOrProhibitions()
+                        .then((response) => {
+                            if (response.status) {
+                                dispatch(successEdit(response));
+                            } else {
+                                dispatch(failureEdit(response));
+                            }
+                        })
+                        .catch((err) => {
+                            dispatch(failureEdit(err));
+                        });
+
+                    setTimeout((_) => {
+                        dispatch(finish());
+                    }, 2000);
+                } else {
+                    dispatch(failure(response));
+                }
+            })
+            .catch((err) => {
+                dispatch(failure(err));
+            });
+    };
+
+    function request() {
+        return { type: solicityConstants.UPDATEMOTIVESORPROHIBITIONS_REQUEST };
+    }
+    function finish() {
+        return { type: solicityConstants.CLOSEMOTIVEORPROHIBITION };
+    }
+    function success(response) {
+        return { type: solicityConstants.UPDATEMOTIVESORPROHIBITIONS_SUCCESS, response };
+    }
+    function failure(response) {
+        return { type: solicityConstants.UPDATEMOTIVESORPROHIBITIONS_FAILURE, response };
+    }
+    function successEdit(response) {
+        return { type: solicityConstants.GETMOTIVESORPROHIBITIONS_SUCCESS, response };
+    }
+    function failureEdit(response) {
+        return { type: solicityConstants.GETMOTIVESORPROHIBITIONS_FAILURE, response };
+    }
+}
+
+function deleteMotiveOrProhibition(data) {
+    return (dispatch) => {
+        dispatch(request());
+
+        solicityService
+            .deleteMotiveOrProhibition(data)
+            .then((response) => {
+                if (response.status) {
+                    dispatch(success(response));
+                    solicityService
+                        .getMotivesOrProhibitions()
+                        .then((response) => {
+                            if (response.status) {
+                                dispatch(successDelete(response));
+                            } else {
+                                dispatch(failureDelete(response));
+                            }
+                        })
+                        .catch((err) => {
+                            dispatch(failureDelete(err));
+                        });
+                    setTimeout((_) => {
+                        dispatch(finish());
+                    }, 2000);
+                } else {
+                    dispatch(failure(response));
+                }
+            })
+            .catch((err) => {
+                dispatch(failure(err));
+            });
+    };
+
+    function request() {
+        return { type: solicityConstants.DELETEMOTIVESORPROHIBITIONS_REQUEST };
+    }
+    function finish() {
+        return { type: solicityConstants.CLOSEMOTIVEORPROHIBITION };
+    }
+    function success(response) {
+        return { type: solicityConstants.DELETEMOTIVESORPROHIBITIONS_SUCCESS, response };
+    }
+    function failure(response) {
+        return { type: solicityConstants.DELETEMOTIVESORPROHIBITIONS_FAILURE, response };
+    }
+    function successDelete(response) {
+        return { type: solicityConstants.GETMOTIVESORPROHIBITIONS_SUCCESS, response };
+    }
+    function failureDelete(response) {
+        return { type: solicityConstants.GETMOTIVESORPROHIBITIONS_FAILURE, response };
+    }
+}
+
+function finishMotiveOrProhibition() {
+    return (dispatch) => {
+        dispatch(finish());
+    };
+
+    function finish() {
+        return { type: solicityConstants.CLOSEMOTIVEORPROHIBITION };
     }
 }

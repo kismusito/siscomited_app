@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Navbar, SelectAppretices } from "../../../components";
+import { SelectAppretices } from "../../../components";
 import { MenuItem, FormControl, Select, TextareaAutosize } from "@material-ui/core";
 import { CloudUpload } from "@material-ui/icons";
 import { uploadActions, solicityActions } from "../../../_actions";
@@ -77,10 +77,9 @@ class GenerateSolicity extends Component {
 
         return (
             <div className="background_login">
-                <Navbar />
                 <div className="custom_background_sidebar">
                     <div className="center_container">
-                        <div className="container_white_edit show_overflow_on_mobile">
+                        <div className="container_white_edit show_overflow_on_mobile position_relative">
                             {saveSolicityReducer.loading && (
                                 <div className="loading_file">
                                     <div className="text_loading">

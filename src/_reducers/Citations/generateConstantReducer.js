@@ -38,9 +38,7 @@ export const generateConstantReducer = (state = {}, action) => {
                 message: action.response.message,
             };
         case generatorConstants.RESETACTION_MINUTE:
-            return {
-                complete: true,
-            };
+            return {};
 
         default:
             return state;

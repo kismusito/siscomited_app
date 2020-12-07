@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Navbar } from "../../../components";
-import { userActions } from "../../../_actions";
+import { userActions , rolActions } from "../../../_actions";
 import "./AddUsers.css";
 
 import { MenuItem, FormControl, Select } from "@material-ui/core";
@@ -133,7 +132,6 @@ class AddUsers extends Component {
 
         return (
             <div className="background_login">
-                <Navbar />
                 <div className="custom_background_sidebar">
                     <div className="center_container">
                         <div className="container_white_edit">
@@ -304,7 +302,7 @@ function mapStateToProps(state) {
 }
 
 const actionCreator = {
-    getRoles: userActions.getAllRoles,
+    getRoles: rolActions.getAllRoles,
     register: userActions.registerUser,
 };
 

@@ -1,15 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { solicityActions } from "../../../_actions";
+import { solicityActions, appreticeActions } from "../../../_actions";
 import { HighlightOff } from "@material-ui/icons";
+import { UpdateAppreticeInfo } from '../../../components'
 
 class SolicityDetail extends Component {
     closeSolicityDetail = (_) => {
         this.props.closeModal();
     };
 
+    editAppreticeInfo = (appreticeID) => {
+        this.setState({
+            showModalAppreticeInfo: true,
+        });
+        this.props.appreticeInfo(appreticeID);
+    };
+
     render() {
-        const { getSolicityReducer } = this.props;
+        const { getSolicityReducer , getAppreticeInfoReducer} = this.props;
         return (
             <div className="center_container overlay_black">
                 <div className="container_white_edit custom_container_details">
@@ -49,9 +57,12 @@ class SolicityDetail extends Component {
                     <ul className="list_solicity_details mb-4">
                         {getSolicityReducer.solicity.appretices.map((appretice) => (
                             <li
-                                className="appretices_item_solicity_details"
+                                className="appretices_item_solicity_details center_elements column_direction left-align position_relative"
                                 key={appretice.appretice_id}
                             >
+                            {getAppreticeInfoReducer.status && getAppreticeInfoReducer.appretice._id ===  appretice.appretice_id &&
+                                <UpdateAppreticeInfo />
+                            }
                                 <div className="subTitleLow mb-2">Detalles del aprendiz</div>
                                 <p>
                                     <span className="subTitleBold">Nombre:</span>{" "}
@@ -65,7 +76,12 @@ class SolicityDetail extends Component {
                                     <span className="subTitleBold">Teléfono:</span>{" "}
                                     <span className="subtitle">{appretice.phone}</span>
                                 </p>
-                                <button className="btn btn_big btn_teal mt-5">Editar</button>
+                                <button
+                                    className="btn btn_big btn_teal mt-5"
+                                    onClick={() => this.editAppreticeInfo(appretice.appretice_id)}
+                                >
+                                    Editar
+                                </button>
                             </li>
                         ))}
                     </ul>
@@ -83,7 +99,7 @@ class SolicityDetail extends Component {
                                         alt="show uploaded file"
                                     />
                                 </div>
-                                <div className="subTitleLow mb-2">{file.originalname}</div>
+                                <div className="subTitleLow mb-2 customTextStyle">{file.originalname}</div>
                                 <a
                                     className="btn btn_big btn_teal mt-5 text_center"
                                     href={getSolicityReducer.solicity.fileDomail + file.filename}
@@ -102,14 +118,16 @@ class SolicityDetail extends Component {
 }
 
 function mapStateToProps(state) {
-    const { getSolicityReducer } = state;
+    const { getSolicityReducer , getAppreticeInfoReducer } = state;
     return {
         getSolicityReducer,
+        getAppreticeInfoReducer
     };
 }
 
 const actionCreator = {
     closeModal: solicityActions.closeSolicityDetail,
+    appreticeInfo: appreticeActions.getAppreticeInfo,
 };
 
 const solicityDetailComponent = connect(mapStateToProps, actionCreator)(SolicityDetail);

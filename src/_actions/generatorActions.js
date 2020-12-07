@@ -18,6 +18,11 @@ function generateCitation(data) {
             .then((response) => {
                 if (response.status) {
                     dispatch(success(response));
+
+                    setTimeout(_ => {
+                        dispatch(finish())
+                        history.push('/citations')
+                    } , 2500);
                 } else {
                     dispatch(failure(response));
                 }
@@ -29,6 +34,9 @@ function generateCitation(data) {
 
     function request() {
         return { type: generatorConstants.GENERATORCITATION_REQUEST };
+    }
+    function finish() {
+        return { type: generatorConstants.REDIRECTTOCITATIONS };
     }
     function success(response) {
         return { type: generatorConstants.GENERATORCITATION_SUCCESS, response };

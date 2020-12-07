@@ -15,6 +15,7 @@
 
 .add_new_role {
     height: 100px;
+    width: 100%;
     cursor: pointer;
     text-align: center;
     color: #fff;
@@ -27,6 +28,10 @@
     align-items: center;
 }
 
+.wd100 {
+    width: 100%;
+}
+
 .subTitleLow {
     color: var(--sena-green-color);
 }
@@ -36,12 +41,13 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
     padding: 20px;
     background-color: #fff;
     z-index: 999;
     display: flex;
     justify-content: center;
+    align-items: center;
     border-radius: 10px;
 }
 
@@ -59,7 +65,14 @@
 }
 
 .form_desing_rol {
-    width: 300px;
+    width: 100%;
+}
+
+.custom_role_container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 12px 0;
 }
 
 .capacitySelect {
@@ -92,6 +105,10 @@
     flex-direction: column;
     width: 100%;
     list-style: none;
+    max-height: 300px;
+    height: 300px;
+    overflow: auto;
+    padding: 0 10px;
 }
 
 .roles_list_item {
@@ -112,10 +129,20 @@
 }
 
 .edit_trigger {
+    cursor: pointer;
     color: var(--sena-green-color);
 }
 
 .delete_trigger {
+    cursor: pointer;
+    color: tomato;
+}
+
+.text_success {
+    color: var(--sena-green-color);
+}
+
+.text_failure {
     color: tomato;
 }
 

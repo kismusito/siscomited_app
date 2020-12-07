@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Navbar } from "../../../components";
 import { Add, HighlightOff, EditOutlined, DeleteOutlined } from "@material-ui/icons";
 import { TextareaAutosize } from "@material-ui/core";
 import { solicityActions } from "../../../_actions";
@@ -42,21 +41,65 @@ class MotivesAndProhibitions extends Component {
         this.props.saveMotivesOrProhibition(data);
     };
 
+    getMotiveOrProhibition = (key) => {
+        this.props.getMotiveOrProhibition(key);
+    };
+
+    editMotiveOrProhibition = (e) => {
+        e.preventDefault();
+        const motiveOrProhibition = {
+            motiveOrProhibitionID: e.target.motiveOrProhibitionID.value,
+            title: e.target.motiveOrProhibitionTitle.value,
+            description: e.target.motiveOrProhibitionDescription.value,
+        };
+
+        this.props.updateMotiveOrProhibition(motiveOrProhibition);
+    };
+
+    deleteMotiveOrProhibition = (key) => {
+        const verify = window.confirm("Estas de seguro de eliminar el motivo o prohibición.");
+        if (!verify) {
+            return false;
+        }
+
+        this.props.deleteMotiveOrProhibition({ motiveOrProhibitionID: key });
+    };
+
     render() {
-        const { getMotivesOrProhibitionsReducer, saveMotiveOrProhibitionReducer } = this.props;
+        const {
+            getMotivesOrProhibitionsReducer,
+            saveMotiveOrProhibitionReducer,
+            getMotiveOrProhibitionReducer,
+            updateMotiveOrProhibitionReducer,
+            deleteMotiveOrProhibitionReducer,
+        } = this.props;
 
         return (
             <div className="background_login">
-                <Navbar />
                 <div className="custom_background_sidebar">
                     <div className="center_container">
                         <div className="container_white_edit min_height min_height_mobile show_overflow">
                             <div className="role_container">
                                 <div className="roleList">
-                                    <div className="title">Motivos y prohibiciones</div>
-                                    <div className="subtitle">
-                                        Edita y añade motivos o prohibiciones, estos apareseran en
-                                        la seccion de generar solicitud de los intructores.
+                                    <div style={{textAlign: "left"}}>
+                                        <div className="title">Motivos y prohibiciones</div>
+                                        <div className="subtitle">
+                                            Edita y añade motivos o prohibiciones, estos apareseran
+                                            en la seccion de generar solicitud de los intructores.
+                                        </div>
+                                        {deleteMotiveOrProhibitionReducer.show && (
+                                            <div className="mt-5">
+                                                <span
+                                                    className={
+                                                        deleteMotiveOrProhibitionReducer.status
+                                                            ? "text_success"
+                                                            : "text_failure"
+                                                    }
+                                                >
+                                                    {deleteMotiveOrProhibitionReducer.message}
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
 
                                     <ul className="roles_list">
@@ -71,10 +114,24 @@ class MotivesAndProhibitions extends Component {
                                                             {element.title}
                                                         </div>
                                                         <div className="role_actions">
-                                                            <div className="edit_trigger ">
+                                                            <div
+                                                                className="edit_trigger"
+                                                                onClick={() =>
+                                                                    this.getMotiveOrProhibition(
+                                                                        element._id
+                                                                    )
+                                                                }
+                                                            >
                                                                 <EditOutlined />
                                                             </div>
-                                                            <div className="delete_trigger">
+                                                            <div
+                                                                className="delete_trigger"
+                                                                onClick={() =>
+                                                                    this.deleteMotiveOrProhibition(
+                                                                        element._id
+                                                                    )
+                                                                }
+                                                            >
                                                                 <DeleteOutlined />
                                                             </div>
                                                         </div>
@@ -97,7 +154,7 @@ class MotivesAndProhibitions extends Component {
                                         <HighlightOff />
                                     </div>
 
-                                    <div className="padding_15">
+                                    <div className="padding_15 wd100">
                                         <form
                                             method="POST"
                                             onSubmit={this.addNewMotiveOrProhibitions}
@@ -131,9 +188,7 @@ class MotivesAndProhibitions extends Component {
                                                 />
                                             </div>
 
-                                            <button className="btn btn_big btn_orange">
-                                                Añadir
-                                            </button>
+                                            <button className="btn btn_big btn_teal">Añadir</button>
 
                                             {saveMotiveOrProhibitionReducer.status && (
                                                 <div className="leftMargin edit_trigger">
@@ -150,6 +205,75 @@ class MotivesAndProhibitions extends Component {
                                     </div>
                                 </div>
                             )}
+
+                            {getMotiveOrProhibitionReducer.status && (
+                                <div className="modal_overlay_role total_height center_elements">
+                                    <div
+                                        className="close_modal"
+                                        onClick={() => this.props.finishMotiveOrProhibition()}
+                                    >
+                                        <HighlightOff />
+                                    </div>
+
+                                    <div className="padding_15 wd100">
+                                        <form method="POST" onSubmit={this.editMotiveOrProhibition}>
+                                            <div className="title leftMargin bottomMargin2">
+                                                Editar motivo o prohibición
+                                            </div>
+                                            <input
+                                                type="hidden"
+                                                name="motiveOrProhibitionID"
+                                                defaultValue={
+                                                    getMotiveOrProhibitionReducer.motiverOrProhibion
+                                                        ._id
+                                                }
+                                                required={true}
+                                            />
+                                            <div className="form_group">
+                                                <input
+                                                    type="text"
+                                                    name="motiveOrProhibitionTitle"
+                                                    defaultValue={
+                                                        getMotiveOrProhibitionReducer
+                                                            .motiverOrProhibion.title
+                                                    }
+                                                    className="form_control"
+                                                    placeholder="Título"
+                                                    required={true}
+                                                />
+                                            </div>
+
+                                            <div className="form_group">
+                                                <TextareaAutosize
+                                                    className="text_area_custom"
+                                                    rowsMin={3}
+                                                    defaultValue={
+                                                        getMotiveOrProhibitionReducer
+                                                            .motiverOrProhibion.description
+                                                    }
+                                                    name="motiveOrProhibitionDescription"
+                                                    placeholder="Descripción"
+                                                    required={true}
+                                                />
+                                            </div>
+
+                                            <button className="btn btn_big btn_teal">Editar</button>
+
+                                            {updateMotiveOrProhibitionReducer.status && (
+                                                <div className="leftMargin edit_trigger">
+                                                    {updateMotiveOrProhibitionReducer.message}
+                                                </div>
+                                            )}
+
+                                            {!updateMotiveOrProhibitionReducer.status && (
+                                                <div className="leftMargin delete_trigger">
+                                                    {updateMotiveOrProhibitionReducer.message}
+                                                </div>
+                                            )}
+                                        </form>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -159,13 +283,31 @@ class MotivesAndProhibitions extends Component {
 }
 
 function mapStateToProps(state) {
-    const { authReducer, getMotivesOrProhibitionsReducer, saveMotiveOrProhibitionReducer } = state;
-    return { authReducer, getMotivesOrProhibitionsReducer, saveMotiveOrProhibitionReducer };
+    const {
+        authReducer,
+        getMotivesOrProhibitionsReducer,
+        saveMotiveOrProhibitionReducer,
+        getMotiveOrProhibitionReducer,
+        updateMotiveOrProhibitionReducer,
+        deleteMotiveOrProhibitionReducer,
+    } = state;
+    return {
+        authReducer,
+        getMotivesOrProhibitionsReducer,
+        saveMotiveOrProhibitionReducer,
+        getMotiveOrProhibitionReducer,
+        updateMotiveOrProhibitionReducer,
+        deleteMotiveOrProhibitionReducer,
+    };
 }
 
 const actionCreator = {
     getMotivesOrProhibitions: solicityActions.getMotiveOrProhibitions,
+    getMotiveOrProhibition: solicityActions.getMotiveOrProhibition,
     saveMotivesOrProhibition: solicityActions.saveMotiveOrProhibitions,
+    finishMotiveOrProhibition: solicityActions.finishMotiveOrProhibition,
+    updateMotiveOrProhibition: solicityActions.updateMotiveOrProhibition,
+    deleteMotiveOrProhibition: solicityActions.deleteMotiveOrProhibition,
 };
 
 const motivesAndProhibitionsComponent = connect(

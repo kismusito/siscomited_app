@@ -4,6 +4,7 @@ import { appreticeService } from "../services";
 export const appreticeActions = {
     getAppreticeInfo,
     saveAppreticeInfo,
+    closeModalAppreticeInfo,
 };
 
 function getAppreticeInfo(appreticeID) {
@@ -32,6 +33,16 @@ function getAppreticeInfo(appreticeID) {
     }
     function failure(response) {
         return { type: appreticeConstants.GETAPPRETICEINFO_FAILURE, response };
+    }
+}
+
+function closeModalAppreticeInfo() {
+    return (dispatch) => {
+        dispatch(closeModal());
+    };
+
+    function closeModal() {
+        return { type: appreticeConstants.GETAPPRETICEINFO_FINISH };
     }
 }
 

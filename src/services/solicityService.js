@@ -8,7 +8,10 @@ export const solicityService = {
     saveSolicity,
     getSolicites,
     changeSolicityStatus,
-    getSolicityDetails
+    getSolicityDetails,
+    updateMotiveOrProhibition,
+    deleteMotiveOrProhibition,
+    getMotiveOrProhibition
 };
 
 async function getDrawSolicity() {
@@ -37,6 +40,22 @@ async function getMotivesOrProhibitions() {
     return convertRequest;
 }
 
+async function getMotiveOrProhibition(key) {
+    const configuration = {
+        method: "GET",
+        headers: {
+            "x-access-token": cookie.load("userToken"),
+        },
+    };
+
+    const sendRequest = await fetch(
+        config.serverRoute + "getMotiveOrProhibition/" + key,
+        configuration
+    );
+    const convertRequest = await sendRequest.json();
+    return convertRequest;
+}
+
 async function saveMotivesOrProhibitions(data) {
     const configuration = {
         method: "POST",
@@ -44,7 +63,7 @@ async function saveMotivesOrProhibitions(data) {
             "Content-Type": "application/json",
             "x-access-token": cookie.load("userToken"),
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     };
 
     const sendRequest = await fetch(config.serverRoute + "saveMotiveOrProhibition", configuration);
@@ -59,7 +78,7 @@ async function saveSolicity(data) {
             "Content-Type": "application/json",
             "x-access-token": cookie.load("userToken"),
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     };
 
     const sendRequest = await fetch(config.serverRoute + "saveSolicity", configuration);
@@ -88,7 +107,7 @@ async function changeSolicityStatus(data) {
             "Content-Type": "application/json",
             "x-access-token": cookie.load("userToken"),
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     };
 
     const sendRequest = await fetch(config.serverRoute + "changeSolicityStatus", configuration);
@@ -102,10 +121,46 @@ async function getSolicityDetails(id) {
         headers: {
             "Content-Type": "application/json",
             "x-access-token": cookie.load("userToken"),
-        }
+        },
     };
 
     const sendRequest = await fetch(config.serverRoute + "getSolicityDetails/" + id, configuration);
+    const convertRequest = await sendRequest.json();
+    return convertRequest;
+}
+
+async function updateMotiveOrProhibition(data) {
+    const configuration = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "x-access-token": cookie.load("userToken"),
+        },
+        body: JSON.stringify(data),
+    };
+
+    const sendRequest = await fetch(
+        config.serverRoute + "updateMotiveOrProhibition",
+        configuration
+    );
+    const convertRequest = await sendRequest.json();
+    return convertRequest;
+}
+
+async function deleteMotiveOrProhibition(data) {
+    const configuration = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "x-access-token": cookie.load("userToken"),
+        },
+        body: JSON.stringify(data),
+    };
+
+    const sendRequest = await fetch(
+        config.serverRoute + "deleteMotiveOrProhibition",
+        configuration
+    );
     const convertRequest = await sendRequest.json();
     return convertRequest;
 }

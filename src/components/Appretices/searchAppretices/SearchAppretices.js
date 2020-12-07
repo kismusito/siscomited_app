@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Navbar } from "../../../components";
 import { searchActions } from "../../../_actions";
 import "./SearchAppretices.css";
 import { HighlightOff } from "@material-ui/icons";
@@ -73,7 +72,6 @@ class SearchAppretices extends Component {
 
         return (
             <div className="background_login">
-                <Navbar />
                 <div className="custom_background_sidebar">
                     <div className="center_container">
                         <div className="container_white_edit no_over_hidden min_height_search">

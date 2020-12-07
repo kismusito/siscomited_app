@@ -6,4 +6,9 @@ export * from "./searchActions";
 export * from "./generatorActions";
 export * from "./appreticeActions";
 export * from "./solicityActions";
+export * from "./templateActions";
+export * from "./minuteActions";
+export * from "./mailActions";
+export * from "./rolActions";
+export * from "./citationActions";
 

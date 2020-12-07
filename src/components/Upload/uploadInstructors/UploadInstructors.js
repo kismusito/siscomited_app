@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Navbar } from "../../../components";
 import { uploadActions } from "../../../_actions";
 import { ArrowUpward } from "@material-ui/icons/";
 import "./uploadInstructors.css";
@@ -22,7 +21,6 @@ class UploadInstructors extends Component {
 
         return (
             <div className="background_login">
-                <Navbar />
                 <div className="custom_background_sidebar">
                     <div className="center_container">
                         <div className="container_white_edit min_height center_elements">

@@ -16,6 +16,8 @@ export const getAppreticeInfoReducer = (state = {}, action) => {
                 status: action.response.status,
                 message: action.response.message,
             };
+        case appreticeConstants.GETAPPRETICEINFO_FINISH:
+            return {}
         default:
             return state;
     }

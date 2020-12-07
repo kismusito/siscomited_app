@@ -5,3 +5,6 @@ export * from "./getSolicitiesReducer";
 export * from "./updateSolicityStatusReducer";
 export * from "./getSolicityReducer";
 export * from "./getDrawsSolicityReducer";
+export * from "./getMotiveOrProhibitionReducer";
+export * from "./updateMotiveOrProhibitionReducer";
+export * from "./deleteMotiveOrProhibitionReducer";

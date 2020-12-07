@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { HighlightOff, EditOutlined , StarBorder , Star} from "@material-ui/icons";
+import { HighlightOff, EditOutlined, StarBorder, Star } from "@material-ui/icons";
 import { searchActions, appreticeActions } from "../../../_actions";
+import { UpdateAppreticeInfo } from "../../../components";
 import "./selectAppretices.css";
 
 class SelectAppretices extends Component {
@@ -16,7 +17,7 @@ class SelectAppretices extends Component {
             showModalInfoAppretice: false,
             appreticesSelected: [],
             showModalAppreticeInfo: false,
-            spokeMan: ""
+            spokeMan: "",
         };
     }
 
@@ -68,7 +69,7 @@ class SelectAppretices extends Component {
                 appreticeID,
                 name,
                 lastName,
-                attemded: false
+                attemded: false,
             });
 
             this.setState({
@@ -109,14 +110,14 @@ class SelectAppretices extends Component {
         });
     };
 
-    setAppreticeSpokeMan = appreticeID => {
+    setAppreticeSpokeMan = (appreticeID) => {
         this.setState({
-            spokeMan: appreticeID
-        })
-    }
+            spokeMan: appreticeID,
+        });
+    };
 
     render() {
-        const { searchReducer, getAppreticeInfoReducer, saveAppreticeInfoReducer } = this.props;
+        const { searchReducer, getAppreticeInfoReducer } = this.props;
         return (
             <div>
                 <div className="form_group_search cmp">
@@ -151,16 +152,14 @@ class SelectAppretices extends Component {
                             <div className="appreticesAreaContainer">
                                 <div
                                     className="icon_delete_selected"
-                                    onClick={() => this.setAppreticeSpokeMan(appretices.appreticeID)}
+                                    onClick={() =>
+                                        this.setAppreticeSpokeMan(appretices.appreticeID)
+                                    }
                                 >
-                                    {this.state.spokeMan === appretices.appreticeID &&
-                                        <Star />
-                                    }
-                                    {this.state.spokeMan !== appretices.appreticeID &&
+                                    {this.state.spokeMan === appretices.appreticeID && <Star />}
+                                    {this.state.spokeMan !== appretices.appreticeID && (
                                         <StarBorder />
-                                    }
-                                    
-                                    
+                                    )}
                                 </div>
                                 <div
                                     className="icon_delete_selected"
@@ -181,82 +180,17 @@ class SelectAppretices extends Component {
                     ))}
                 </div>
 
-                <input type="hidden" name="appreticeSpokeMan" id="appreticeSpokeMan" value={this.state.spokeMan} ref={input => this.spokeMan = input} />
+                <input
+                    type="hidden"
+                    name="appreticeSpokeMan"
+                    id="appreticeSpokeMan"
+                    value={this.state.spokeMan}
+                    ref={(input) => (this.spokeMan = input)}
+                />
 
-                {this.state.showModalAppreticeInfo && (
-                    <div className="showOverlayUpdateInfo center_elements">
-                        <div className="editContainerAppreticeInfo">
-                            <div className="close_modal" onClick={this.eHandleHideModal}>
-                                <HighlightOff />
-                            </div>
-                            <div className="editAppreticeNoForm">
-                                <div className="form_group">
-                                    <input
-                                        type="text"
-                                        name="appreticeEmail"
-                                        ref={(input) => (this.eHandleAppreticeEmail = input)}
-                                        defaultValue={
-                                            getAppreticeInfoReducer.status
-                                                ? getAppreticeInfoReducer.appretice.email
-                                                : ""
-                                        }
-                                        placeholder="Email"
-                                        className="form_control"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="form_group">
-                                    <input
-                                        type="text"
-                                        name="appreticePhone"
-                                        ref={(input) => (this.eHandleAppreticePhone = input)}
-                                        defaultValue={
-                                            getAppreticeInfoReducer.status
-                                                ? getAppreticeInfoReducer.appretice.phone
-                                                : ""
-                                        }
-                                        placeholder="Teléfono"
-                                        className="form_control"
-                                        required
-                                    />
-                                </div>
-                                <div className="form_group">
-                                    <button
-                                        className="btn btn_big btn_teal"
-                                        onClick={this.saveAppreticeInfo}
-                                    >
-                                        Guardar
-                                    </button>
-                                </div>
-                                {getAppreticeInfoReducer.loading && (
-                                    <div className="loading_file">
-                                        <div className="text_loading_new">
-                                            Estamos buscando al aprendiz
-                                        </div>
-                                        <div className="loader_upload"></div>
-                                    </div>
-                                )}
-                                {saveAppreticeInfoReducer.loading && (
-                                    <div className="loading_file">
-                                        <div className="text_loading_new">
-                                            Estamos procesando tu solicitud
-                                        </div>
-                                        <div className="loader_upload"></div>
-                                    </div>
-                                )}
-                                {saveAppreticeInfoReducer.status && (
-                                    <div className="alert_success_edit">
-                                        {saveAppreticeInfoReducer.message}
-                                    </div>
-                                )}
-                                {!saveAppreticeInfoReducer.status && (
-                                    <div className="alert_error_edit">
-                                        {saveAppreticeInfoReducer.message}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                {getAppreticeInfoReducer.status && (
+                    <div className="full_container_appretice_update center_elements">
+                        <UpdateAppreticeInfo />
                     </div>
                 )}
 
@@ -296,8 +230,8 @@ class SelectAppretices extends Component {
 }
 
 function mapStateToProps(state) {
-    const { searchReducer, getAppreticeInfoReducer, saveAppreticeInfoReducer } = state;
-    return { searchReducer, getAppreticeInfoReducer, saveAppreticeInfoReducer };
+    const { searchReducer, getAppreticeInfoReducer } = state;
+    return { searchReducer, getAppreticeInfoReducer };
 }
 
 const actionCreator = {

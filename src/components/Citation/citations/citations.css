@@ -23,6 +23,11 @@
     transition: 0.5s all;
 }
 
+.m500 {
+    min-height: 500px;
+    top: inherit !important;
+}
+
 .citation_item:hover {
     background-color: rgb(247, 247, 247);
 }

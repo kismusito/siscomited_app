@@ -1,17 +1,51 @@
 import { combineReducers } from "redux";
 import { userConstants } from "../_constants";
 
-import { citationSelectedReducer, citationsReducer, generateConstantReducer } from "./Citations";
-import { addRoleReducer, getRolInfoReducer, getRoleCapacitiesReducer, roleReducer } from "./Role";
+import {
+    citationSelectedReducer,
+    citationsReducer,
+    generateConstantReducer,
+    sendCitationReducer,
+} from "./Citations";
+import {
+    addRoleReducer,
+    getRolInfoReducer,
+    getRoleCapacitiesReducer,
+    roleReducer,
+    getRolReducer,
+    selectedRolReducer,
+    updateRoleReducer,
+    deleteRolReducer,
+} from "./Role";
 import { uploadNewStatusCitation, uploadReducer, uploadSolicityFilesReducer } from "./Upload";
 import { registerUserReducer, authReducer } from "./Auth";
 import { chagePasswordReducer, editProfileReducer, editUserSearchReducer } from "./Edit";
 import { getAppreticeInfoReducer, saveAppreticeInfoReducer } from "./Appretice";
+import { getAttendeesReducer } from "./Minute";
+import {
+    getMailReducer,
+    getMailsReducer,
+    getMailPermits,
+    updateMailReducer,
+    deleteMailReducer,
+    createMailReducer,
+    mailModalReducer,
+} from "./Mail";
+import {
+    getCustomFieldsReducer,
+    templateModalReducer,
+    createTemplateReducer,
+    templatesReducer,
+    getTemplateReducer,
+    updateTemplateReducer,
+} from "./Template";
 import {
     searchReducer,
     searchUsersReducer,
     searchedUserReducer,
     apreticeSearchedReducer,
+    searchInstructors,
+    instructorSearchedReducer,
 } from "./Search";
 import {
     getMotivesOrProhibitionsReducer,
@@ -21,6 +55,9 @@ import {
     updateSolicityStatusReducer,
     getSolicityReducer,
     getSolicityDrawReducer,
+    getMotiveOrProhibitionReducer,
+    updateMotiveOrProhibitionReducer,
+    deleteMotiveOrProhibitionReducer,
 } from "./Solicity";
 
 const rootReducer = combineReducers({
@@ -52,6 +89,30 @@ const rootReducer = combineReducers({
     getSolicitiesReducer,
     updateSolicityStatusReducer,
     getSolicityReducer,
+    getCustomFieldsReducer,
+    templateModalReducer,
+    createTemplateReducer,
+    templatesReducer,
+    getAttendeesReducer,
+    getMailReducer,
+    getMailsReducer,
+    getMailPermits,
+    updateMailReducer,
+    deleteMailReducer,
+    createMailReducer,
+    mailModalReducer,
+    sendCitationReducer,
+    getRolReducer,
+    selectedRolReducer,
+    updateRoleReducer,
+    deleteRolReducer,
+    searchInstructors,
+    instructorSearchedReducer,
+    getMotiveOrProhibitionReducer,
+    updateMotiveOrProhibitionReducer,
+    deleteMotiveOrProhibitionReducer,
+    getTemplateReducer,
+    updateTemplateReducer,
 });
 
 export default (state, action) =>

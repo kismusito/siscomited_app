@@ -7,22 +7,37 @@ export const searchActions = {
     hideModalSearched,
 };
 
-function searchAppretices(searchData) {
+function searchAppretices(searchData, instructor = false) {
     return (dispatch) => {
-        dispatch(request());
-
-        searchService
-            .searchAppretices(searchData)
-            .then((response) => {
-                if (response.status) {
-                    dispatch(success(response));
-                } else {
-                    dispatch(failure(response));
-                }
-            })
-            .catch((err) => {
-                dispatch(failure(err));
-            });
+        if (!instructor) {
+            dispatch(request());
+            searchService
+                .searchAppretices(searchData)
+                .then((response) => {
+                    if (response.status) {
+                        dispatch(success(response));
+                    } else {
+                        dispatch(failure(response));
+                    }
+                })
+                .catch((err) => {
+                    dispatch(failure(err));
+                });
+        } else {
+            dispatch(requestInstructor());
+            searchService
+                .searchInstructors(searchData)
+                .then((response) => {
+                    if (response.status) {
+                        dispatch(successInstructor(response));
+                    } else {
+                        dispatch(failureInstructor(response));
+                    }
+                })
+                .catch((err) => {
+                    dispatch(failureInstructor(err));
+                });
+        }
     };
 
     function request() {
@@ -34,24 +49,49 @@ function searchAppretices(searchData) {
     function failure(response) {
         return { type: searchConstants.SEARCHAPPRETICE_SUCCESS, response };
     }
+    function requestInstructor() {
+        return { type: searchConstants.SEARCHINSTRUCTOR_REQUEST };
+    }
+    function successInstructor(response) {
+        return { type: searchConstants.SEARCHINSTRUCTOR_SUCCESS, response };
+    }
+    function failureInstructor(response) {
+        return { type: searchConstants.SEARCHINSTRUCTOR_FAILURE, response };
+    }
 }
 
-function searchAppretice(appreticeID) {
+function searchAppretice(appreticeID, instructor = false) {
     return (dispatch) => {
-        dispatch(request());
+        if (!instructor) {
+            dispatch(request());
 
-        searchService
-            .searchAppretice(appreticeID)
-            .then((response) => {
-                if (response.status) {
-                    dispatch(success(response));
-                } else {
-                    dispatch(failure(response));
-                }
-            })
-            .catch((err) => {
-                dispatch(failure(err));
-            });
+            searchService
+                .searchAppretice(appreticeID)
+                .then((response) => {
+                    if (response.status) {
+                        dispatch(success(response));
+                    } else {
+                        dispatch(failure(response));
+                    }
+                })
+                .catch((err) => {
+                    dispatch(failure(err));
+                });
+        } else {
+            dispatch(requestInstructor());
+            searchService
+                .searchInstructor(appreticeID)
+                .then((response) => {
+                    if (response.status) {
+                        dispatch(successInstructor(response));
+                    } else {
+                        dispatch(failureInstructor(response));
+                    }
+                })
+                .catch((err) => {
+                    dispatch(failureInstructor(err));
+                });
+        }
     };
 
     function request() {
@@ -62,6 +102,15 @@ function searchAppretice(appreticeID) {
     }
     function failure(response) {
         return { type: searchConstants.SEARCHONEAPRETICE_FAILURE, response };
+    }
+    function requestInstructor() {
+        return { type: searchConstants.SEARCHONEINSTRUCTOR_REQUEST };
+    }
+    function successInstructor(response) {
+        return { type: searchConstants.SEARCHONEINSTRUCTOR_SUCCESS, response };
+    }
+    function failureInstructor(response) {
+        return { type: searchConstants.SEARCHONEINSTRUCTOR_FAILURE, response };
     }
 }
 

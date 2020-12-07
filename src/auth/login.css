@@ -153,13 +153,15 @@
 }
 .form_group .MuiFormControl-root {
     width: 100%;
-    height: 40px;
-    padding: 5px 20px;
+    height: 50px;
+    padding: 0 20px;
     outline: none;
     border: none;
     box-shadow: 0 0 5px 0 rgba(59, 59, 59, 0.199);
-    border-radius: 20px;
+    border-radius: 0;
     color: rgb(95, 95, 95);
+    display: flex;
+    justify-content: center;
 }
 
 .form_group .MuiFormControl-root .MuiInput-underline:hover:not(.Mui-disabled):before {
