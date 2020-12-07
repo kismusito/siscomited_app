@@ -42,7 +42,7 @@ class Roles extends Component {
         e.preventDefault();
         const newRol = {
             name: this.rolName.value,
-            capacity: this.state.selectedRol,
+            capacity: this.props.selectedRolReducer.selected,
         };
         this.props.addRol(newRol);
         e.target.reset();

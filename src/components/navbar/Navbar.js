@@ -61,7 +61,7 @@ class Navbar extends Component {
                     <div className="image_profile">
                         <img
                             src={
-                                authReducer.userInfo.profilePicture
+                                authReducer.userInfo.profilePicture && authReducer.userInfo.profilePicture !== null 
                                     ? authReducer.userInfo.profilePicture
                                     : "/assets/img/usuario.png"
                             }
