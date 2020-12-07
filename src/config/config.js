@@ -1,3 +1,3 @@
 export const config = {
-    serverRoute: "http://localhost:4000/"
+    serverRoute: "https://siscomited.herokuapp.com/"
 }
