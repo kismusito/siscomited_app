@@ -183,12 +183,12 @@ class GenerateMinutes extends Component {
                                         </Select>
                                     </FormControl>
                                 </div>
-                                <button
+                                {/* <button
                                     onClick={() => this.takeAttended(this.props.match.params.id)}
                                     className="button_generate_citation w200"
                                 >
                                     Tomar asistencia
-                                </button>
+                                </button> */}
                             </div>
 
                             <form
